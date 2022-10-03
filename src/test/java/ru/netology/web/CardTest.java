@@ -1,35 +1,44 @@
 package ru.netology.web;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.chrome.ChromeOptions;
+
 import java.util.List;
 
-public class CardTest {
+class CardTest {
+
     WebDriver driver;
 
     @BeforeAll
-    static void setupClass() {
+    static void setupAll()  {
         WebDriverManager.chromedriver().setup();
+
     }
 
     @BeforeEach
-    void setupTest() {
+    void setup()  {
         driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
     }
 
     @AfterEach
-    void tearDown() {
+    void teardown() {
         driver.quit();
-        driver = null;
     }
 
     @Test
-    void shouldTestCardForm() throws InterruptedException {
+    void shouldTestCardForm() {
         driver.get("http://localhost:9999/");
         List<WebElement> elements = driver.findElements(By.className("input__control"));
         elements.get(0).sendKeys("Петров Иван");
@@ -38,9 +47,6 @@ public class CardTest {
         driver.findElement(By.className("button_theme_alfa-on-white")).click();
         String text = driver.findElement(By.className("paragraph_theme_alfa-on-white")).getText();
         Assertions.assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim());
-
-
     }
+
 }
-
-
