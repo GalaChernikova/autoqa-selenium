@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/9tg2g4becoh4miu6?svg=true)](https://ci.appveyor.com/project/GalaChernikova/autoqa-selenium)
