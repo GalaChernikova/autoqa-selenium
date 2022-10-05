@@ -21,13 +21,12 @@ class CardTest {
     }
 
     @BeforeEach
-    void setup()  {
-        driver = new ChromeDriver();
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--disable-dev-shm-usage");
-//        options.addArguments("--no-sandbox");
-//        options.addArguments("--headless");
-//        driver = new ChromeDriver(options);
+    public void setup() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
     }
 
     @AfterEach
@@ -46,7 +45,6 @@ class CardTest {
         driver.findElement(By.className("button_theme_alfa-on-white")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText();
         Assertions.assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim());
-        Thread.sleep(5000);
     }
 
 }
